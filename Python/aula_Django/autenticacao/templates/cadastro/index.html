@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %}Meu site {% endblock %}
+
+{% block 'head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/css.css' %}">
+
+{% endblock %}
+
+{% block 'conteudo' %}
+<form method='POST' action="{% url 'cadastro' %}">{% csrf_token %}
+    <div class="mb-3">
+      
+      <input type="text" class="form-control" placeholder="Nome..." name="nome" aria-describedby="emailHelp">
+      
+    </div>
+    <div class="mb-3">
+      
+      <input type="email" class="form-control" placeholder="E-mail..." name="email" >
+    </div>
+    <div class="mb-3">
+      
+        <input type="password" class="form-control" placeholder="Senha..." name="senha" >
+    </div>
+    
+    
+    <input type="submit">
+</form>
+
+<img src="{% static 'img/pedro_0_.png'%}" width="50" height="40">
+{% if x == 0 %}
+    {% for i in pessoas %}
+    <h1>Nome: {{i.nome}}</h1>
+    <h1>Idade: {{i.idade}}</h1>
+    <h1>Profissao: {{i.profissao}}</h1>
+
+    <hr>
+    {% endfor %}
+    
+{% endif %}
+{% endblock %}
