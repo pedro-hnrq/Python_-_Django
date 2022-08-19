@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+
+    {% if messages %}
+        {% for i in messages %}
+            
+            <div class="alert {{i.tags}}" role="alert">
+                {{i}}<strong> {{user.username}}!</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
