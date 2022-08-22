@@ -2,11 +2,11 @@ from django.contrib.messages import constants
 import usuarios
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Usuario
 from django.shortcuts import redirect
 from hashlib import sha256
 from django.contrib import messages, auth
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from .models import Users as User
 
 
 
@@ -26,6 +26,9 @@ def valida_cadastro(request):
     nome = request.POST.get('nome')
     email = request.POST.get('email')
     senha = request.POST.get('senha')
+    cep = request.POST.get('cep')
+    rua = request.POST.get('rua')
+    numero = request.POST.get('numero')
     
     # Vai tirar todos os espaços strip()
     if len(nome.strip()) == 0 or len(email.strip()) == 0:
@@ -48,8 +51,14 @@ def valida_cadastro(request):
         return redirect('/auth/cadastro/')
 
     try:                
-        usuario = User.objects.create_user(username = nome, email = email, password = senha)
+        usuario = User.objects.create_user(username = nome, email = email, password = senha, cep=cep, rua=rua, numero=numero)
         usuario.save()
+
+        # endereco_cadastro = Users (     cep=cep, 
+        #                                 rua=rua,
+        #                                 numero=numero,
+        #                                 usuario=usuario)
+        # endereco_cadastro.save()
         messages.add_message(request, constants.SUCCESS, 'Cadastro realizado com Sucesso!')
         return redirect('/auth/login/')
     except:

@@ -5,7 +5,7 @@
     {% if messages %}
         {% for i in messages %}
             
-            <div class="alert {{i.tags}}" role="alert">
+            <div class="alert {{i.tags}}" role="alert" align="center">
                 {{i}}<strong> {{user.username}}!</strong>
             </div>
         {% endfor %}
