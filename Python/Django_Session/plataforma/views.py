@@ -24,5 +24,3 @@ def home(request):
                 else:
                         return render(request, 'home', {'form' : form} )
 
-               
-    
