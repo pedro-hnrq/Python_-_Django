@@ -1,0 +1,13 @@
+*.log
+local_setting.py
+db.sqllite3
+db.sqlite3-journal
+
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bek/
