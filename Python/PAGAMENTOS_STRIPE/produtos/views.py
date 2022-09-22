@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse
 import stripe
 from django.conf import settings
 from .models import Produto, Pedido
 from django.views.decorators.csrf import csrf_exempt
-
+from django.http import JsonResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -19,7 +19,7 @@ def create_payment(request, id):
         
     )
     return JsonResponse({
-        'clientSecret': intent['client_secret']
+     'clientSecret': intent['client_secret']
     })
     
 
