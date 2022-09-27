@@ -1,6 +1,7 @@
+from importlib.metadata import metadata
 from django.shortcuts import render
 from django.http.response import HttpResponse
-import stripe
+import stripe, json
 from django.conf import settings
 from .models import Produto, Pedido
 from django.views.decorators.csrf import csrf_exempt
@@ -11,11 +12,17 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 @csrf_exempt
 def create_payment(request, id):
     produto = Produto.objects.get(id=id)
+
+    email = json.loads(request.body)['email']
         # data = json.loads(request.data)
         # Create a PaymentIntent with the order amount and currency
     intent = stripe.PaymentIntent.create(
         amount=int(produto.preco),
         currency='BRL',
+        metadata={
+            'produto_id': produto.id,
+            'email': email
+        }
         
     )
     return JsonResponse({
@@ -89,6 +96,8 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
         return HttpResponse(status=400)
+    
+    print(event)
     
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']

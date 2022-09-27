@@ -222,10 +222,11 @@
               showMessage('Ocorreu um erro')
             } else {
               showMessage('Compra finalizada com Sucesso!')
+              paymentElement.clear()
             }
           })
       })
-
+  })
     // ------- UI helpers -------
 
     function showMessage(messageText) {
