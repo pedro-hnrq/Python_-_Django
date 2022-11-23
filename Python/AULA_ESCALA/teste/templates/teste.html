@@ -1,0 +1,9 @@
+{% load cache %}
+<h1> Olá Galera Linda de Deus {{x}}</h1>
+
+{% cache 60 user %}
+    {% for usuario in usuarios %}
+        {{usuario.primeiro_nome}}
+    {% endfor %}
+
+{% endcache %}
