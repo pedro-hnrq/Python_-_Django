@@ -1,5 +1,5 @@
 from ninja import Router
-# from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .schemas import Alimento
 from .models import Alimento as ModelAlimento
 from django.shortcuts import get_list_or_404
@@ -33,8 +33,8 @@ alimentos_router = Router()
 #     print(alimento)
 #     return alimento
 
-@alimentos_router.post('/')
-def get_alimento(request, alimento: Alimento):
+@alimentos_router.get('/')
+def get_alimento(request, response: HttpResponse):
+     
     
-    print(alimento.quantidade   )
-    return alimento
+    return {'quantidade': 1, 'request': request.auth}

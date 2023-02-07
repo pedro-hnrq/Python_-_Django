@@ -9,6 +9,9 @@ class Alimento(ModelSchema):
     # quantidade: int
     # # variedades: list[str]
     novo_campo : List[int] = []
-    class Config:
+    class Config(Schema.Config):
         model = ModelAlimento
+        # anystr_lower = True
+        # anystr_strip_whitespace = True
+        # allow_mutation = False
         model_fields = "__all__"

@@ -1,8 +1,9 @@
 from ninja import Router
 from django.http import JsonResponse
-
+from django.contrib.auth.models import User
 pacientes_router = Router()
 
-@pacientes_router.get('teste2/')
+@pacientes_router.post('teste/')
 def teste(request):
-    return JsonResponse({'teste':2})
+    User.objects.get(id=request.auth)
+    return JsonResponse({'teste':2, 'user': request.auth})
