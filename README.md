@@ -6,20 +6,20 @@
 <hr>
 <h4>Django</h4>
 <ul>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/Login">Login</a></h4></li>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/Django_celery">Django Celery</a></h4></li>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/DJANGO_CHANNELS">Django Channels</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Login">Login</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Django_celery">Django Celery</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/DJANGO_CHANNELS">Django Channels</a></h4></li>
     <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/Django_Session">Django Session</a></h4></li>
 </ul>
 <h4>Stripe</h4>
 <ul>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/PAGAMENTOS_STRIPE">Pagamentos Stripe</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/PAGAMENTOS_STRIPE">Pagamentos Stripe</a></h4></li>
 </ul>
 <h4>Docker</h4>
 <ul>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/Docker">Dockerfile</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Docker">Dockerfile</a></h4></li>
 </ul>
 <h4>Djago Ninja</h4>
 <ul>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/Python/DJANGO_NINJA">Django Ninja</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/DJANGO_NINJA">Django Ninja</a></h4></li>
 </ul>
