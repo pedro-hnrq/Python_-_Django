@@ -1,5 +1,4 @@
 from pathlib import Path
-from decouple import config
 from django.contrib.messages import constants
 import os
 
@@ -117,9 +116,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #env
+from decouple import config
 
-STRIPE_SECRET_KEY=config('STRIPE_SECRET_KEY') 
-STRIPE_PUBLIC_KEY=config('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
 
 # Django Notification
 

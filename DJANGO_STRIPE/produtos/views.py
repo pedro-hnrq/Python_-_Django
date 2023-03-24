@@ -1,17 +1,20 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render
 import stripe
 from django.conf import settings
 from .models import Produto
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.messages import constants
 
-stripe.api_key=settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
+    
 def create_checkout_session(request, id):
     produto = Produto.objects.get(id = id)
     
-    YOUR_DOMAIN = "http://127.0.0.1:8000"
+    YOUR_DOMAIN = "http://127.0.0.1:8080"
     
     checkout_session = stripe.checkout.Session.create(
         line_items=[
@@ -41,13 +44,37 @@ def create_checkout_session(request, id):
     return JsonResponse({'id': checkout_session.id})
 
 def home(request):
-    produto = Produto.objects.get(id = 1)
-    return render(request, 'home.html', {'produto': produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
+    # produto = Produto.objects.get(id=3)
+    produto = Produto.objects.all()
+    # all_produt = { 'produt':produt }
+    return render(request, 'home.html', {'produto':produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
 
 def sucesso(request):
     messages.add_message(request, constants.SUCCESS, 'Pagamento confiamado com Sucesso!')
-    return HttpResponse('Sucesso!')
+    return render(request, 'sucesso.html')
 
 def erro (request):
     messages.add_message(request, constants.ERROR, 'Erro na procedimento de pagamento')
-    return HttpResponse('Erro!')
+    return render(request, 'erro.html')
+
+# # @csrf_exempt= isento de verificação ou validação.
+# @csrf_exempt
+# def stripe_webhook(request):
+#     payload = request.body
+#     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+#     event = None
+#     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+
+#     try:
+#         event = stripe.Webhook.construct_event(
+#         payload, sig_header, endpoint_secret
+#         )
+#     except ValueError as e:
+#         # Invalid payload
+#         return HttpResponse(status=400)
+#     except stripe.error.SignatureVerificationError as e:
+#         # Invalid signature
+#         return HttpResponse(status=400)
+#     print(payload)
+
+#     return HttpResponse(status=200)

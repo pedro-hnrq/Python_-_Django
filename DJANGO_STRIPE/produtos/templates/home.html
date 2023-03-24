@@ -3,30 +3,22 @@
    
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.stripe.com/v3/"></script>
-
 </head>
-<body>  
-    
+<body>
     
         <section>
-            {% if messages %}
-                <br>
-                {% for message in messages %}
-                    <div class="alert {{message.tags}}">
-                        {{message}}
-                    </div>
-                {% endfor %}
-            {% endif %}
+          {% for produt in produto %}
           <div class="product">
            
             <div class="description">
-              <h3>{{produto.nome}}</h3>
-              <h5>{{produto.exibe_preco}}</h5>
+              <h3>{{produt.nome}}</h3>
+              <h5>{{produt.exibe_preco}}</h5>
             </div>
+            
           </div>
          
-            <button type="submit" id="checkout-button">Confirma</button>
-
+            <button type="submit" id="checkout-button">Checkout</button>
+        {% endfor %}
         </section>
       
   {% csrf_token %}
@@ -37,7 +29,7 @@
   var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
   var checkoutButton = document.getElementById("checkout-button");
   checkoutButton.addEventListener("click", function () {
-    fetch("{% url 'create_checkout_session' produto.id %}", {
+    fetch("", {
       method: "POST",
       headers: {
           'X-CSRFToken': csrftoken
