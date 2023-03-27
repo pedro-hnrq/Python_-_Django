@@ -2,49 +2,31 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 import stripe
 from django.conf import settings
-from .models import Produto
+from .models import Produto, Pedido
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.messages import constants
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY 
 
+@csrf_exempt
+def create_payment(request, id):
+    produto = Produto.objects.get(id=id)
     
-def create_checkout_session(request, id):
-    produto = Produto.objects.get(id = id)
+    # Create a PaymentIntent with the order amount and currency
+    intent = stripe.PaymentIntent.create(
+        amount=int(produto.preco),
+        currency='BRL',
+        
+        )
+    return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
     
-    YOUR_DOMAIN = "http://127.0.0.1:8000"
     
-    checkout_session = stripe.checkout.Session.create(
-        line_items=[
-            {
-                'price_data': {
-                    'currency': 'BRL',
-                    'unit_amount': int(produto.preco),
-                    'product_data': {
-                        'name': produto.nome
-                    }
-
-                },
-                'quantity': 1,
-            },
-        ],
-        payment_method_types=[
-            'card',
-            'boleto',
-        ],
-        metadata={
-            'id_produto': produto.id,
-        },
-        mode='payment',
-        success_url=YOUR_DOMAIN + '/sucesso',
-        cancel_url=YOUR_DOMAIN + '/erro',
-    )
-    return JsonResponse({'id': checkout_session.id})
-
 def home(request):
-    produto = Produto.objects.get(id=2)
+    produto = Produto.objects.get(id=3)
     # produto = Produto.objects.all()
     # all_produt = { 'produt':produt }
     return render(request, 'home.html', {'produto':produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
@@ -86,7 +68,16 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
         return HttpResponse(status=400)
-    print(payload)
-
+    
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object'] 
+        print(session)       
+        pedido = Pedido(produto_id=session['metadata']['id_produto'], 
+                        email=session['customer_detail']['email'],
+                        nome=session['metadata']['nome'],
+                        status=event['type'])
+        pedido.save()
+        
+    # print(event)
     return HttpResponse(status=200)
 
