@@ -2,7 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 import stripe
 from django.conf import settings
-from .models import Produto
+from .models import Produto, Pedido
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -44,8 +44,8 @@ def create_checkout_session(request, id):
     return JsonResponse({'id': checkout_session.id})
 
 def home(request):
-    # produto = Produto.objects.get(id=3)
-    produto = Produto.objects.all()
+    produto = Produto.objects.get(id=3)
+    # produto = Produto.objects.all()
     # all_produt = { 'produt':produt }
     return render(request, 'home.html', {'produto':produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
 
@@ -75,6 +75,13 @@ def stripe_webhook(request):
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
         return HttpResponse(status=400)
-    print(payload)
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object'] 
+        print(session)       
+        pedido = Pedido(produto_id=session['metadata']['id_produto'], 
+                        email=session['customer_detail']['email'],
+                        nome=session['metadata']['nome'],
+                        status=event['type'])
+        pedido.save()
 
     return HttpResponse(status=200)

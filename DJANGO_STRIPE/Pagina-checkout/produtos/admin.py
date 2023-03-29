@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Produto
+from .models import Produto, Pedido
 
 
 admin.site.register(Produto)
+admin.site.register(Pedido)
 
 # from django.contrib.admin.decorators import action
 # import stripe

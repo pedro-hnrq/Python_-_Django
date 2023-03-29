@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.messages import constants
+import json
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY 
 
@@ -14,10 +16,16 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def create_payment(request, id):
     produto = Produto.objects.get(id=id)
     
+    email = json.loads(request.body)['email']
+    
     # Create a PaymentIntent with the order amount and currency
     intent = stripe.PaymentIntent.create(
         amount=int(produto.preco),
         currency='BRL',
+        metadata={
+            'produto_id': produto.id,
+            'email': email
+        }
         
         )
     return JsonResponse({
@@ -26,7 +34,7 @@ def create_payment(request, id):
     
     
 def home(request):
-    produto = Produto.objects.get(id=3)
+    produto = Produto.objects.get(id=4)
     # produto = Produto.objects.all()
     # all_produt = { 'produt':produt }
     return render(request, 'home.html', {'produto':produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})
@@ -69,14 +77,15 @@ def stripe_webhook(request):
         # Invalid signature
         return HttpResponse(status=400)
     
-    if event['type'] == 'checkout.session.completed':
+    if event['type'] == 'charge.succeeded':
         session = event['data']['object'] 
         print(session)       
-        pedido = Pedido(produto_id=session['metadata']['id_produto'], 
-                        email=session['customer_detail']['email'],
-                        nome=session['metadata']['nome'],
-                        status=event['type'])
-        pedido.save()
+        x = Pedido(produto_id = session['metadata']['produto_id'],
+                   payment_intent = session['payment_intent'],
+                   email = session['metadata']['email'],
+                   valor_pago = session['amount'],
+                   status = session['status'])
+        x.save()
         
     # print(event)
     return HttpResponse(status=200)
