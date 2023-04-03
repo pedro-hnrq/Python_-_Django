@@ -34,7 +34,7 @@ def create_payment(request, id):
     
     
 def home(request):
-    produto = Produto.objects.get(id=4)
+    produto = Produto.objects.get(id=1)
     # produto = Produto.objects.all()
     # all_produt = { 'produt':produt }
     return render(request, 'home.html', {'produto':produto, 'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY})

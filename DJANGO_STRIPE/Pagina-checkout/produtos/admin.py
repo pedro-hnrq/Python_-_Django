@@ -5,6 +5,7 @@ from .models import Produto, Pedido
 admin.site.register(Produto)
 admin.site.register(Pedido)
 
+
 # from django.contrib.admin.decorators import action
 # import stripe
 # from django.conf import settings
@@ -25,7 +26,6 @@ admin.site.register(Pedido)
 
 # @admin.register(Pedido)
 # class PedidoAdmin(admin.ModelAdmin):
-#     list_display = ('produto', 'email', 'valor_pago', 'status', 'payment_intent')
+#     list_display = ('produto', 'email', 'name', 'endereco','valor_pago', 'status')
 #     list_filter = ('status',)
 #     actions = [reembolsar_cliente]
-

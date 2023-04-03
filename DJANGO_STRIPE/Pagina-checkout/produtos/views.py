@@ -36,6 +36,8 @@ def create_checkout_session(request, id):
         ],
         metadata={
             'id_produto': produto.id,
+            'name': 'Henrique',
+            'endereco': 'Rua dos Migrantes,1289, SP'
         },
         mode='payment',
         success_url=YOUR_DOMAIN + '/sucesso',
@@ -79,9 +81,11 @@ def stripe_webhook(request):
         session = event['data']['object'] 
         print(session)       
         pedido = Pedido(produto_id=session['metadata']['id_produto'], 
-                        email=session['customer_detail']['email'],
-                        nome=session['metadata']['nome'],
+                        email=session['customer_details']['email'],
+                        name=session['metadata']['name'],
+                        endereco=session['metadata']['endereco'],
+                        valor_pago = session['amount_total'],
                         status=event['type'])
         pedido.save()
-
+    # print(event[type])
     return HttpResponse(status=200)

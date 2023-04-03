@@ -21,6 +21,6 @@ admin.site.register(Produto)
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
     list_display = ('produto', 'email', 'valor_pago', 'status', 'payment_intent')
-    # list_filter = ('status',)
-    # actions = [reembolsar_cliente]
+    list_filter = ('status',)
+    actions = [reembolsar_cliente]
 

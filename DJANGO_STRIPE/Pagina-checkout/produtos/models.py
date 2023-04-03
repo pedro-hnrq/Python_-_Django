@@ -16,14 +16,8 @@ class Pedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=DO_NOTHING)
     email = models.EmailField()
     name = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=100) 
+    endereco = models.CharField(max_length=100)
+    valor_pago = models.IntegerField() 
     status = models.CharField(max_length=100)     
-# class Pedido(models.Model):
-#     produto = models.ForeignKey(Produto, on_delete=DO_NOTHING)
-#     payment_intent = CharField(max_length=30, unique=True)
-#     email = models.EmailField()
-#     valor_pago = IntegerField()
-#     status = models.CharField(max_length=100)
 
-#     def __str__(self):
-#         return self.email
+    

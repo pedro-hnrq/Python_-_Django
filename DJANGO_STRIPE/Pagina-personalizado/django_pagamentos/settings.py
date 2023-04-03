@@ -2,6 +2,7 @@ from pathlib import Path
 from django.contrib.messages import constants
 import os
 from decouple import config
+from .jazzmin import JAZZMIN_SETTINGS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +23,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,3 +137,4 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
 }
 
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
