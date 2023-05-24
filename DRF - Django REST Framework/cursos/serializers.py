@@ -11,7 +11,7 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
         model = Avaliacao
         fields = (
             'id',
-            'cursos',
+            'curso',
             'nome',
             'email',
             'comentario',
