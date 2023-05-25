@@ -1,3 +1,5 @@
+# token = 7dc9f9e28797dab7c5c8a6625b59c41c8b0fc6d5
+
 from pathlib import Path
 import os
 
@@ -30,6 +32,7 @@ INSTALLED_APPS = [
     # Exts
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     # APPs
     'cursos',
 ]
@@ -126,10 +129,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     #GUIA DE AUTENTICAÇÕES
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     #GUIA DE AUTORIZAÇÕES
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+    # Paginação
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
 }
