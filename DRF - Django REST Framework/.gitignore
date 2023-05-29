@@ -11,6 +11,10 @@ media
 ./media
 .vscode
 
+.pytest_cache
+pystest_cache
+
+
 media
 .media
 
