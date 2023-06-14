@@ -10,7 +10,7 @@
 
 <h4>Projeto</h4>
 <ul>
-    <li><h4><a href="https://github.com/pedro-hnrq/Python_-_Django/tree/main/DJANGO_NINJA">Projeto Cursos API</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Proj_Cursos_API">Projeto Cursos API</a></h4></li>
 </ul>
 <h4>Documentações</h4>
 <ul>
