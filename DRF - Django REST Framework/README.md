@@ -18,6 +18,7 @@
 <h4>Projeto</h4>
 <ul>
     <li><h4><a href="https://github.com/pedro-hnrq/Proj_Cursos_API">Projeto Cursos API</a></h4></li>
+    <li><h4><a href="https://github.com/pedro-hnrq/Proj_Med_API">Projeto Consultas MED API</a></h4></li>
 </ul>
 <h4>Documentação</h4>
 <ul>
